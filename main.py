@@ -12,7 +12,7 @@ Menu_items = {'espresso': {'Water': 50,
                         'Milk': 150,
                         'Coffee': 24,
                         'Money': 2.5},
-              'Cappuccino': {'Water': 250,
+              'cappuccino': {'Water': 250,
                              'Milk': 100,
                              'Coffee': 24,
                              'Money': 2.41}}
@@ -35,39 +35,49 @@ def report():
 
 def transaction(total_money):
     if total_money >= Menu_items[choice]['Money']:
-        resources['Money'] = Menu_items[choice]['Money']
+        resources['Money'] += Menu_items[choice]['Money']
         total_money -= Menu_items[choice]['Money']
         amt = '{:.2f}'.format(total_money)
-        print(f"Here's the change:{amt}$")
+        print(f"Here's the change:{amt}$ \n")
     else:
-        print(f"Sorry that's not enough money")
+        print(f"Sorry that's not enough money \n")
 
-#
+
 def preparation(choice):
-    for item in choice[items]:
-        if Menu_items[choice][item] <= resources[item]:
+    for item in resources:
+        if resources[item] >= Menu_items[choice][item]:
             resources[item] -= Menu_items[choice][item]
-            print(f"Here's your:{choice}, Please enjoy!")
+            return True
         else:
-            print(f"Sorry there are no enough resources!")
+            return False
 
 
-choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
+machine = True
+while machine:
+    choice = input("What would you like? (espresso/latte/cappuccino): ").lower()
 
-if choice == "report":
-    report()
-elif choice == "off":
-    print("Turning off the machine")
-else:
-    if choice in Menu_items:
-        print("Please insert coins")
+    if choice == "report":
+        report()
+    elif choice == "off":
+        print("Turning off the machine")
+        machine = False
+    else:
+        if choice in Menu_items:
+            print("Please insert coins")
 
-        for coin in coins:
-            received = int(input(f"how many {coin}?:"))
-            total_money += coins[coin]*received
+            for coin in coins:
+                received = int(input(f"how many {coin}?:"))
+                total_money += coins[coin]*received
 
-        preparation(choice)
-        transaction(total_money)
+            if preparation(choice):
+                print(f"Here's your {choice}, Please enjoy!")
+            else:
+                print(f"Sorry there are no enough resources!")
+
+            transaction(total_money)
+            total_money = 0
+        else:
+            print("Please only choose the available drinks ! \n")
 
 
 
