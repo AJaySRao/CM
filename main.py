@@ -5,7 +5,7 @@ resources = {'Water': 300,
              'Money': 0 }
 
 Menu_items = {'espresso': {'Water': 50,
-                           'Milk': 0,
+                           #'Milk': 0,
                            'Coffee': 18,
                            'Money': 3.5},
               'latte': {'Water': 200,
