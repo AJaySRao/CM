@@ -43,14 +43,12 @@ def coin_process():
 
 
 def transaction(total_money):
-    """Validates the transaction made, and returns the entered extra amount back to the user"""
+    """Validates the transaction made"""
     if total_money >= Menu_items[choice]['Money']:
-        total_money -= Menu_items[choice]['Money']
-        amt = '{:.2f}'.format(total_money)
-        print(f"Here's the change:{amt}$")
         return True
     else:
         return False
+
 
 def ingredient_check(choice):
     """Checks with resources ingredients, whether the user entered drink can be made"""
@@ -61,6 +59,7 @@ def ingredient_check(choice):
             print(f"Sorry there are no enough available {item}!")
             return False
 
+
 def make_coffee():
     for item in resources:
         if resources[item] >= Menu_items[choice][item]:
@@ -69,7 +68,6 @@ def make_coffee():
 
 
 machine = True
-
 while machine:
     choice = input("\nWhat would you like? (espresso/latte/cappuccino): ").lower()
 
@@ -81,8 +79,11 @@ while machine:
     else:
         if choice in Menu_items:
             if ingredient_check(choice):
-                received = coin_process()
-                if transaction(received):
+                total_money = coin_process()
+                if transaction(total_money):
+                    total_money -= Menu_items[choice]['Money']
+                    amt = round(total_money, 2)
+                    print(f"Here's the change:{amt}$")
                     make_coffee()
                     profit += Menu_items[choice]['Money']
                 else:
