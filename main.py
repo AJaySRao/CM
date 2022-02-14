@@ -22,7 +22,6 @@ coins = {'pennies': 0.01,
          'quarters': 0.25}
 
 profit = 0
-total_money = 0
 
 def report():
     """Report of the resources in the Machine"""
@@ -35,7 +34,7 @@ def report():
 def coin_process():
     """Process the respective value of each entered coin"""
     print("Please insert coins")
-    global total_money
+    total_money = 0
     for coin in coins:
         received = int(input(f"how many {coin}?:"))
         total_money += coins[coin]*received
@@ -43,7 +42,7 @@ def coin_process():
 
 
 def transaction(total_money):
-    """Validates the transaction made"""
+    """Validates the transaction"""
     if total_money >= Menu_items[choice]['Money']:
         return True
     else:
@@ -82,12 +81,11 @@ while machine:
                 total_money = coin_process()
                 if transaction(total_money):
                     total_money -= Menu_items[choice]['Money']
-                    amt = round(total_money, 2)
-                    print(f"Here's the change:{amt}$")
+                    print(f"Here's the change:{round(total_money, 2)}$")
                     make_coffee()
                     profit += Menu_items[choice]['Money']
                 else:
-                    print(f"Sorry that's not enough money")
+                    print(f"Sorry that's not enough money. Money refunded!")
         else:
             print("Please only choose the available drinks ! \n")
 
