@@ -1,8 +1,8 @@
 # Practice-CM
 Program requirements:
 
-Prints reports
-Checks for sufficient resources
-Processes coins entered
-Checks for successful transaction
-Final ouput made coffee
+1. Prints reports
+2. Checks for sufficient resources
+3. Processes coins entered
+4. Checks for successful transaction
+5. Final ouput made coffee
