@@ -29,7 +29,7 @@ def report():
 
 
 def coin_process():
-    """Process the respective value of each entered coin"""
+    """Returns the total_money calculated from processing coins"""
     print("Please insert coins")
     total_money = 0
     for coin in coins:
@@ -53,23 +53,21 @@ def transaction(cost):
 def ingredient_check(choice):
     """Checks with resources ingredients, whether the user entered drink can be made"""
     for item in resources:
-        if resources[item] >= Menu_items[choice][item]:
-            return True
-        else:
-            print(f"Sorry there are no enough available {item}!")
+        if resources[item] < Menu_items[choice][item]:
+            print(f"Sorry there are no enough {item}!")
             return False
+        return True
 
 
 def make_coffee():
     for item in resources:
         if resources[item] >= Menu_items[choice][item]:
             resources[item] -= Menu_items[choice][item]
-    print(f"Here's your {choice}, Please enjoy!")
+    print(f"Here's your {choice} ☕, Please enjoy!")
 
 machine = True
 while machine:
     choice = input("\nWhat would you like? (espresso/latte/cappuccino): ").lower()
-
     if choice == "report":
         report()
     elif choice == "off":
@@ -78,10 +76,9 @@ while machine:
     else:
         if choice in Menu_items:
             if ingredient_check(choice):
-                cost = Menu_items[choice]['Money']
-                if transaction(cost):
+                if transaction(Menu_items[choice]['Money']):
                     make_coffee()
-                    profit += cost
+                    profit += Menu_items[choice]['Money']
         else:
             print("Please only choose the available drinks ! \n")
 
