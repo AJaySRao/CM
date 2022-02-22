@@ -1,4 +1,6 @@
-# Practice-CM
+# CM
+Picked out real world example like how the coffee machine works
+
 Program requirements:
 
 1. Prints reports
